@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #181818; color: #fff; margin-top: 40px; }
+    .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; justify-content: center; margin-top: 20px; }
+    .cell { width: 90px; height: 90px; background: #282828; border: 2px solid #444; font-size: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 1rem; background: #007acc; color: #fff; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h2>Tic-Tac-Toe</h2>
+  <div class="board" id="board"></div>
+  <h3 id="status">Turn: Player X</h3>
+  <button onclick="resetGame()">Restart</button>
+
+  <script>
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let currentPlayer = "X";
+    const boardEl = document.getElementById("board");
+    const statusEl = document.getElementById("status");
+
+    function render() {
+      boardEl.innerHTML = "";
+      board.forEach((val, i) => {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.innerText = val;
+        cell.onclick = () => makeMove(i);
+        boardEl.appendChild(cell);
+      });
+    }
+
+    function makeMove(i) {
+      if (!board[i]) {
+        board[i] = currentPlayer;
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+        statusEl.innerText = `Turn: Player ${currentPlayer}`;
+        render();
+      }
+    }
+
+    function resetGame() {
+      board = ["", "", "", "", "", "", "", "", ""];
+      currentPlayer = "X";
+      statusEl.innerText = "Turn: Player X";
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
